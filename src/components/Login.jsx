@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
+import { useNavigate } from 'react-router-dom';
+
 export default function Login() {
   const [email, setEmail] = useState('ms954@gmail.com');
   const [password, setPassword] = useState('Mrut@123');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [focusedField, setFocusedField] = useState('');
-
+  const disPatch = useDispatch();
+  const Navigate = useNavigate();
   const handleSubmit = async () => {
     setIsLoading(true);
     try{
@@ -20,7 +25,8 @@ export default function Login() {
         
         setIsLoading(false);
         console.log('Login attempt:', { email, password });
-
+        disPatch(addUser(userData.data));
+        return Navigate('/');
     }catch (error) {
       console.error('Login failed:', error);
       // Handle error (e.g., show a notification)
