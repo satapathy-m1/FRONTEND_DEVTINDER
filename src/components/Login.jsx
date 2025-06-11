@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/constants';
 
 export default function Login() {
   const [email, setEmail] = useState('ms954@gmail.com');
@@ -16,11 +17,11 @@ export default function Login() {
   const handleSubmit = async () => {
     setIsLoading(true);
     try{
-        const userData = await axios.post("http://localhost:7777/login", {
+        const userData = await axios.post(BASE_URL + "/login", {
             email,
             password,
         }, {withCredentials: true});
-        // Simulate API call
+        
         console.log('User data:', userData);
         
         setIsLoading(false);
@@ -29,7 +30,7 @@ export default function Login() {
         return Navigate('/');
     }catch (error) {
       console.error('Login failed:', error);
-      // Handle error (e.g., show a notification)
+     
     }
   };
 
