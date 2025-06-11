@@ -12,6 +12,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [focusedField, setFocusedField] = useState('');
+  const [error, setError] = useState("");
   const disPatch = useDispatch();
   const Navigate = useNavigate();
   const handleSubmit = async () => {
@@ -29,6 +30,8 @@ export default function Login() {
         disPatch(addUser(userData.data));
         return Navigate('/');
     }catch (error) {
+      setError(error.response?.data?.message || 'Login failed');
+      setIsLoading(false);
       console.error('Login failed:', error);
      
     }
@@ -99,7 +102,7 @@ export default function Login() {
                 </button>
               </div>
             </div>
-
+                <p className='text-red-500 text-xl'>{error}</p>
             {/* Submit Button */}
             <button
               onClick={handleSubmit}
@@ -107,7 +110,7 @@ export default function Login() {
               className="w-full bg-white text-gray-900 font-semibold py-3 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.01] active:scale-[0.99] text-sm"
             >
               <div className="flex items-center justify-center">
-                {isLoading ? (
+                {isLoading && (error === "")? (
                   <>
                     <div className="w-4 h-4 border-2 border-gray-600 border-t-gray-900 rounded-full animate-spin mr-2"></div>
                     Signing in...
