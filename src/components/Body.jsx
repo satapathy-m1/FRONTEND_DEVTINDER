@@ -33,7 +33,7 @@ const Body = () => {
   }, [])
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen bg-gray-950 text-white">
         <Navbar />
         <Outlet />
         <Footer />

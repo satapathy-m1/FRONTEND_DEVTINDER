@@ -1,25 +1,55 @@
-import React from 'react'
+import React from 'react';
 
 const UserCard = ({ user }) => {
-    console.log(user.about);
-    
   return (
-    <div className="card bg-base-300 w-96 shadow-sm border">
-        <figure>
-            <img
-            src= {user.profilePicture}
-            alt="profile picture" />
-        </figure>
-        <div className="card-body">
-            <h2 className="card-title">{user.firstName + " "+ user.lastName}</h2>
-            <p>{user.skills}</p>
-            <div className="card-actions justify-end">
-            <button className="btn btn-primary">Ignore</button>
-            <button className="btn btn-primary">Interested</button>
-            </div>
-        </div>
-    </div>
-  )
-}
+    <div className="bg-gradient-to-b from-gray-800 to-black text-white border border-yellow-400 rounded-2xl shadow-xl w-full max-w-md">
+      <figure className="p-4">
+        <img
+          src={user.profilePicture || "https://via.placeholder.com/150"}
+          alt="profile"
+          className="rounded-xl w-full h-60 object-cover border border-yellow-500"
+        />
+      </figure>
+      <div className="px-6 pb-6">
+        <h2 className="text-2xl font-bold text-yellow-400 mb-2">
+          {user.firstName} {user.lastName}
+        </h2>
 
-export default UserCard
+        {user.age && (
+          <p className="text-sm text-gray-300 mb-1">
+            <span className="font-semibold text-white">Age:</span> {user.age}
+          </p>
+        )}
+
+        {user.gender && (
+          <p className="text-sm text-gray-300 mb-1">
+            <span className="font-semibold text-white">Gender:</span> {user.gender}
+          </p>
+        )}
+
+        {user.skills?.length > 0 && (
+          <p className="text-sm text-gray-300 mb-1">
+            <span className="font-semibold text-white">Skills:</span> {user.skills.join(", ")}
+          </p>
+        )}
+
+        {user.about && (
+          <p className="text-sm text-gray-300 mb-4">
+            <span className="font-semibold text-white">About:</span> {user.about}
+          </p>
+        )}
+
+        <div className="flex gap-3 justify-end">
+          <button className="btn btn-outline border-yellow-400 text-yellow-400 hover:bg-yellow-500 hover:text-black">
+            Ignore
+          </button>
+          <button className="btn bg-yellow-500 text-black hover:bg-yellow-600 font-semibold">
+            Interested
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserCard;

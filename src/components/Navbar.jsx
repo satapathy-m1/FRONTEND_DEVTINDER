@@ -29,7 +29,7 @@ const Navbar = () => {
     }
   }
   return (
-    <div className="navbar bg-neutral">
+    <div className="navbar bg-neutral ">
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost text-xl">DevTinder</Link>
         </div>
@@ -54,7 +54,7 @@ const Navbar = () => {
                   <span className="badge">New</span>
                 </Link>
               </li>
-              <li><a>Settings</a></li>
+              <li><Link to="/connections" className='justify-between'> My Connections</Link></li>
               <li><button onClick={handleLogout}>Logout</button></li>
             </ul>
           </div>
