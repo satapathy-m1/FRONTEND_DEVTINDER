@@ -1,6 +1,23 @@
 import React from 'react';
-
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { BASE_URL } from '../utils/constants';
+import { removeUserFromFeed } from '../utils/feedSlice';
 const UserCard = ({ user }) => {
+  const dispatch = useDispatch();
+  const handleSendRequest = async (status, userId) => {
+    try{
+      const res = await axios.post(BASE_URL + "/request/send/" + status + "/" + userId, {}
+        , {
+          withCredentials: true,
+        }
+      )
+      dispatch(removeUserFromFeed(userId));
+    }catch(error) {
+      console.error("Error sending request:", error);
+    }
+  }
+
   return (
     <div className="bg-gradient-to-b from-gray-800 to-black text-white border border-yellow-400 rounded-2xl shadow-xl w-full max-w-md">
       <figure className="p-4">
@@ -40,10 +57,14 @@ const UserCard = ({ user }) => {
         )}
 
         <div className="flex gap-3 justify-end">
-          <button className="btn btn-outline border-yellow-400 text-yellow-400 hover:bg-yellow-500 hover:text-black">
+          <button className="btn btn-outline border-yellow-400 text-yellow-400 hover:bg-yellow-500 hover:text-black"
+            onClick={() => handleSendRequest('ignore', user._id)}
+          >
             Ignore
           </button>
-          <button className="btn bg-yellow-500 text-black hover:bg-yellow-600 font-semibold">
+          <button className="btn bg-yellow-500 text-black hover:bg-yellow-600 font-semibold"
+            onClick={() => handleSendRequest('interested', user._id)}
+          >
             Interested
           </button>
         </div>

@@ -10,13 +10,21 @@ const Requests = () => {
   const [loadingId, setLoadingId] = useState(null);
 
   const fetchRequests = async () => {
+    
     try {
       const response = await axios.get(BASE_URL + '/user/requests/received', {
         withCredentials: true,
       });
+      if(response.data.requests.length === 0) {
+        console.log('No pending requests found.');
+        return;
+      }
       dispatch(addRequest(response.data.requests));
     } catch (err) {
+      dispatch(addRequest([]));
+      return;
       console.error('Error fetching requests:', err);
+      
     }
   };
 

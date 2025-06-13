@@ -28,7 +28,7 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
-
+  
   useEffect(() => {
     console.log("📦 Updated feed from Redux:", feed);
   }, [feed]);
